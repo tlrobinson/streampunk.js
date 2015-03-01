@@ -1,0 +1,23 @@
+{
+  "name": "sbp",
+  "version": "0.0.1",
+  "main": "index.es6",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --compilers es6:babel/register --recursive -R spec --require test/test-helper.es6"
+  },
+  "author": "Tom Robinson <tom@tlrobinson.net>",
+  "license": "BSD",
+  "devDependencies": {
+    "babel": "^4.3.0",
+    "chai": "^2.0.0",
+    "chai-as-promised": "^4.2.0",
+    "mocha": "^2.1.0"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.12"
+  }
+}
