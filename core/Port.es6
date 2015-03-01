@@ -1,7 +1,7 @@
 
 import stream from "stream";
 
-export class Port extends stream.Transform {
+export class Port extends stream.PassThrough {
   constructor(name, parent) {
     super({
       objectMode: true,
@@ -23,9 +23,6 @@ export class Port extends stream.Transform {
       return;
     }
     return super.end(...args);
-  }
-  _transform(data, encoding, callback) {
-    callback(null, data);
   }
   name() {
     return (this._parent ? this._parent.name() + "." : "") + this.constructor.name + "(" + this._name + ")";
