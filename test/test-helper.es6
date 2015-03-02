@@ -25,3 +25,35 @@ Runnable.prototype.run = function (fn) {
   }
   return Runnable_prototype_run.call(this, fn);
 }
+
+Promise.defer = function() {
+    var resolve, reject;
+    var promise = new Promise(function() {
+        resolve = arguments[0];
+        reject = arguments[1];
+    });
+    return {
+        resolve: resolve,
+        reject: reject,
+        promise: promise
+    };
+}
+
+chai.use(function(chai, utils) {
+  chai.Assertion.addProperty("ordered", function() {
+    let count = 0;
+    let all = this._obj.map((promise, index) => {
+      return promise.then(() => {
+        this.assert(
+          count === index,
+          "expected promises to resolve in order (" + index + " resolved at " + count + ")",
+          "expected promises to not resolve in order",
+          count,
+          index
+        );
+        count++;
+      });
+    });
+    return Promise.all(all);
+  });
+});

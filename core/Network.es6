@@ -24,8 +24,15 @@ export default class Network extends Process {
     proc._inputs.port(port).write(value);
   }
 
-  connect(sourcePort, destPort) {
-    sourcePort.pipe(destPort);
+  connect(sourcePort, destinationPort, capacity) {
+    sourcePort.pipe(destinationPort);
+    if (capacity != undefined) {
+      console.log(capacity);
+      // destinationPort._writableState.highWaterMark = capacity
+      // destinationPort._readableState.highWaterMark = capacity
+      sourcePort._writableState.highWaterMark = capacity
+      sourcePort._readableState.highWaterMark = capacity
+    }
   }
 
   run() {

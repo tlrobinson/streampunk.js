@@ -22,8 +22,8 @@ describe("delay", function() {
     yield Network.run(function delay_test() {
       let sender0  = this.proc(Emitter(["100 (a)", "200 (a)", "300 (a)", "400 (a)"]), "sen0");
       let sender1  = this.proc(Emitter(["250 (b)", "500 (b)", "750 (b)"]), "sen1");
-      let delay0   = this.proc(delay, "del0", { "INTVL": 100 });
-      let delay1   = this.proc(delay, "del1", { "INTVL": 250 });
+      let delay0   = this.proc(delay, "del0", { "INTVL": 10 });
+      let delay1   = this.proc(delay, "del1", { "INTVL": 25 });
       let receiver = this.proc(Collector((ip) => result.push(ip)), "rec0");
 
       this.connect(sender0.output("OUT"), delay0.input("IN"));

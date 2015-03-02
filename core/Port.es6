@@ -5,7 +5,8 @@ export class Port extends stream.PassThrough {
   constructor(name, parent) {
     super({
       objectMode: true,
-      allowHalfOpen: false
+      allowHalfOpen: false,
+      highWaterMark: 0
     });
 
     this._name = name;

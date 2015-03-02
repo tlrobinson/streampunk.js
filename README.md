@@ -1,6 +1,6 @@
 This project is an experimental "classical" Flow-based programming-like system for JavaScript, providing an idiomatic JavaScript API requiring minimal boilerplate, implemented using standard JavaScript constructs. It aims to support major JavaScript platforms, including Node.js and browsers.
 
-The core API uses [Streams](http://nodejs.org/api/stream.html) (and eventually [here](https://streams.spec.whatwg.org/)) and [Promises](https://promisesaplus.com/]. It also supports [coroutines](https://github.com/petkaantonov/bluebird/blob/master/API.md#promisecoroutinegeneratorfunction-generatorfunction---function) via ECMAScript 6 generator functions and `yield`, providing a style familiar to users of other classical-FBP systems.
+The core API uses [Streams](http://nodejs.org/api/stream.html) (and eventually [here](https://streams.spec.whatwg.org/)) and [Promises](https://promisesaplus.com/). It also supports [coroutines](https://github.com/petkaantonov/bluebird/blob/master/API.md#promisecoroutinegeneratorfunction-generatorfunction---function) via ECMAScript 6 generator functions and `yield`, providing a style familiar to users of other classical-FBP systems.
 
 It is implemented in ECMAScript 6, via [Babel](https://babeljs.io/).
 
