@@ -1,6 +1,7 @@
 
 import stream from "stream";
 import { IP } from "./IP";
+import { receive, receiveContents, send } from "./stream";
 
 export class Port extends stream.PassThrough {
   constructor(name, proc) {
@@ -56,6 +57,10 @@ export class OutPort extends Port {
   //   return super.write(ip, encoding, callback);
   // }
 }
+
+Port.prototype.receive = receive;
+Port.prototype.receiveContents = receiveContents;
+Port.prototype.send = send;
 
 export class PortArray {
   constructor(name, proc, PortClass) {

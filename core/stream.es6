@@ -46,12 +46,3 @@ export function send(ip) {
     return Promise.resolve();
   }
 }
-
-export function augementStream() {
-  stream.Readable.prototype.receive = receive;
-  stream.Readable.prototype.receiveContents = receiveContents;
-  stream.Duplex.prototype.send = send;
-  stream.Writable.prototype.send = send;
-}
-
-augementStream();

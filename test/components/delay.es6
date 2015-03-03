@@ -6,7 +6,7 @@ describe("delay", function() {
   it("should send from Emitter to Collector via delay", function *() {
     let result = [];
 
-    yield Network.run(function copier_test() {
+    yield Network.run(function delay_test() {
       let sender0   = this.proc(Emitter([1,2,3,4]), "sender0");
       let delay0    = this.proc(delay, "delay0", { "INTVL": 100 * DELAY_SCALE });
       let receiver0 = this.proc(Collector((ip) => result.push(ip)), "receiver0");

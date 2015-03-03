@@ -30,14 +30,6 @@ Example Components
 
 The following are examples of a trivial "copier" component written in 3 different styles:
 
-### Stream
-
-    function copier() {
-      this.input("IN").pipe(this.output("OUT"));
-    }
-
-This uses `Stream`'s `pipe` API to pipe the input to the output (automatically handling back-pressure, and closing the output stream when the input stream ends)
-
 ### Classical
 
     function* copier() {
@@ -49,7 +41,21 @@ This uses `Stream`'s `pipe` API to pipe the input to the output (automatically h
 
 Note the use of a generator function, which allows `yield`ing of the Promises returned by `send` and `receive`. These methods use `Stream`'s backpressure facilities (`write()` returning false and the `drain` event) internally to pause execution. The process ends when the generator function returns (regardless of whether the output streams have been closed).
 
+### Stream
+
+Ports are just Node `Streams`, so you can pipe between them:
+
+    function copier() {
+      this.input("IN").pipe(this.output("OUT"));
+    }
+
+This uses `Stream`'s `pipe` API to pipe the input to the output (automatically handling back-pressure, and closing the output stream when the input stream ends)
+
+The `StreamAdapter` component (and `WrapIP` and `UnwrapIP` Transform streams) can be used to adapt Node streams.
+
 ### Reactive
+
+The following is much more verbose, but demonstrates using the raw EventEmitter/Stream API:
 
     function copier() {
       this.input("IN").on("data", (ip) => {
@@ -67,11 +73,22 @@ Note the use of a generator function, which allows `yield`ing of the Promises re
 
 Note this version must manually handle back-pressure via the input port's `pause()` and `resume()` functions, and the output port's `write()` return value and `drain` event.
 
-Caveats
--------
+Example Networks
+----------------
 
-While there is no reason this project can't support them, it does not yet support the following:
+    function delay_example() {
+      let sender0   = this.proc(Emitter(["a","b","c"]), "sender0");
+      let delay0    = this.proc(delay, "delay0", { "INTVL": 1000 });
+      let receiver0 = this.proc(StreamAdapter(process.stdout), "receiver0");
 
-* tracking IPs from creation through destruction
-* bracket IPs and substreams
+      this.connect(sender0.output("OUT"), delay0.input("IN"));
+      this.connect(delay0.output("OUT"), receiver0.input("IN"));
+    }
+
+This network defines 3 processes, a sender which simply sends 3 hard-coded IPs, a delay componenent which delays IPs for 1 second (configured with the INTVL port), and a receiver which sends the IPs' contents to the `stdout` stream.
+
+TODO
+----
+
 * deadlock detection
+* back pressure support is experimental/work-in-progress
