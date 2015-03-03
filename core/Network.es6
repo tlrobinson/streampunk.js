@@ -11,13 +11,21 @@ export default class Network extends Process {
 
   proc(func, name, initializations) {
     let proc = new Process(func, name, this);
+    this._addProc(proc, initializations);
+    return proc;
+  }
 
+  net(func, name, initializations) {
+    let proc = new Network(func, name, this);
+    this._addProc(proc, initializations);
+    return proc;
+  }
+
+  _addProc(proc, initializations) {
     for (let input in initializations) {
       this.initialize(proc, input, initializations[input]);
     }
     this._procs.push(proc);
-
-    return proc;
   }
 
   initialize(proc, port, value) {
