@@ -58,17 +58,15 @@ The `StreamAdapter` component (and `WrapIP` and `UnwrapIP` Transform streams) ca
 The following is much more verbose, but demonstrates using the raw EventEmitter/Stream API:
 
     function copier() {
-      this.input("IN").on("data", (ip) => {
-        if (this.output("OUT").write(ip) === false) {
-          this.input("IN").pause();
+      let IN = this.input("IN");
+      let OUT = this.output("OUT");
+      IN.on("data", (ip) => {
+        if (OUT.write(ip) === false) {
+          IN.pause();
         }
       });
-      this.input("IN").on("finish", () => {
-        this.output("OUT").end();
-      });
-      this.output("OUT").on("drain", () => {
-        this.input("IN").resume();
-      });
+      IN.on("finish", () => OUT.end());
+      OUT.on("drain", () => IN.resume());
     }
 
 Note this version must manually handle back-pressure via the input port's `pause()` and `resume()` functions, and the output port's `write()` return value and `drain` event.
