@@ -42,7 +42,7 @@ Promise.defer = function() {
 chai.use(function(chai, utils) {
   chai.Assertion.addProperty("ordered", function() {
     let count = 0;
-    let all = this._obj.map((promise, index) => {
+    return Promise.all(this._obj.map((promise, index) => {
       return promise.then(() => {
         this.assert(
           count === index,
@@ -53,7 +53,23 @@ chai.use(function(chai, utils) {
         );
         count++;
       });
-    });
-    return Promise.all(all);
+    }));
   });
 });
+
+global.createOrderedExpectation = function(n) {
+  let promises = [];
+  for (let i = 0; i < n; i++) {
+    let deferred = Promise.defer();
+    deferred.promise._resolve = deferred.resolve;
+    promises.push(deferred.promise);
+  }
+  let promise = expect(promises).to.be.ordered;
+  for (let i = 0; i < n; i++) {
+    promise[i] = promises[i];
+  }
+  return promise;
+}
+global.reslv = function(promise) {
+  promise._resolve();
+}

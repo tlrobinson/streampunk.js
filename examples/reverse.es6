@@ -1,12 +1,16 @@
+#!/usr/bin/env babel-node
+
 var Network = require("..").Network;
 var StreamAdapter = require("../components/StreamAdapter");
 
 function* reverse() {
-  let string;
-  while (string = yield this.input("IN").receive()) {
-    yield this.output("OUT").send(string.trim().split("").reverse().join("")+"\n");
+  let ip;
+  while (ip = yield this.input("IN").receive()) {
+    let reversed = ip.contents().trim().split("").reverse().join("")+"\n";
+    this.drop(ip);
+    yield this.output("OUT").send(this.createIP(reversed));
   }
-  yield this.output("OUT").send("done!\n");
+  yield this.output("OUT").send(this.createIP("done!\n"));
 }
 
 Network.run(function reverse_example() {

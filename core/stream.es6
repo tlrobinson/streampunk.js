@@ -2,6 +2,7 @@
 import stream from "stream";
 import Promise from "bluebird";
 
+// Receives an IP, returning a Promise if no IPs are buffered
 export function receive() {
   let data = this.read();
   if (data === null) {
@@ -21,6 +22,16 @@ export function receive() {
   }
 }
 
+// Receives an IP, drops it, and returns the contents
+// Convienent for IIPs, etc.
+export function receiveContents() {
+  return this.receive().then((ip) => {
+    ip.drop();
+    return ip.contents();
+  });
+}
+
+// Sends an IP, return a promise which resolves when downstream port is available for writing
 export function send(ip) {
   let result = this.write(ip);
   if (result === false) {
@@ -38,6 +49,7 @@ export function send(ip) {
 
 export function augementStream() {
   stream.Readable.prototype.receive = receive;
+  stream.Readable.prototype.receiveContents = receiveContents;
   stream.Duplex.prototype.send = send;
   stream.Writable.prototype.send = send;
 }

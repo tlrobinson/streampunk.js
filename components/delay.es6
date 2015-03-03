@@ -1,7 +1,7 @@
 import Promise from "bluebird";
 
 export default function* delay() {
-  let interval = yield this.input("INTVL").receive();
+  let interval = yield this.input("INTVL").receiveContents();
   let inPort = this.input("IN");
   let outPort = this.output("OUT");
   let ip;

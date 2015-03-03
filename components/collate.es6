@@ -3,7 +3,7 @@ export default function* collate() {
   let inportArray = this.inputArray('IN');
   let outport = this.output('OUT');
 
-  let fields = yield ctlfields.receive();
+  let fields = yield ctlfields.receiveContents();
   let totalFieldLength = fields.reduce((acc, n) => acc + n, 0);
 
   let portCount = inportArray.length;
@@ -20,7 +20,7 @@ export default function* collate() {
     let lowestKey = "\uffff";
     for (let portIndex = 0; portIndex < ips.length; portIndex++) {
       if (ips[portIndex] !== null) {
-        let key = ips[portIndex].substring(0, totalFieldLength);
+        let key = ips[portIndex].contents().substring(0, totalFieldLength);
         if (key < lowestKey) {
           lowestKey = key;
           lowestIndex = portIndex;

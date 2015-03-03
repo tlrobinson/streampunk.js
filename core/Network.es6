@@ -21,13 +21,12 @@ export default class Network extends Process {
   }
 
   initialize(proc, port, value) {
-    proc._inputs.port(port).write(value);
+    proc._inputs.port(port).send(this.createIP(value));
   }
 
   connect(sourcePort, destinationPort, capacity) {
     sourcePort.pipe(destinationPort);
-    if (capacity != undefined) {
-      console.log(capacity);
+    if (arguments.length > 2) {
       // destinationPort._writableState.highWaterMark = capacity
       // destinationPort._readableState.highWaterMark = capacity
       sourcePort._writableState.highWaterMark = capacity
@@ -38,8 +37,15 @@ export default class Network extends Process {
   run() {
     let self = this;
     return Promise.coroutine(function*() {
-      var promise = super.run();
+      let promise = super.run();
+
       yield Promise.all(self._procs.map((proc) => proc.run()));
+
+      // log IPs that haven't been dropped
+      self._procs.forEach((proc) => {
+        proc.ownedIPs().forEach((ip) => self.warn(proc.name() + " still owns IP " + ip.contents()));
+      });
+
       yield Promise.resolve(promise);
     })();
   }
