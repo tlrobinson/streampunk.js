@@ -10,7 +10,7 @@
     "test": "mocha --compilers es6:babel/register --recursive -R spec --require test/test-helper.es6"
   },
   "author": "Tom Robinson <tom@tlrobinson.net>",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "babel": "^4.3.0",
     "chai": "^2.0.0",
