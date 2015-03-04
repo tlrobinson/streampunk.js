@@ -9,8 +9,8 @@ export default class Network extends Process {
     this._procs = [];
   }
 
-  proc(func, name, initializations) {
-    let proc = new Process(func, name, this);
+  proc(component, name, initializations) {
+    let proc = new Process(component, name, this);
     this._addProc(proc, initializations);
     return proc;
   }

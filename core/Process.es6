@@ -1,19 +1,32 @@
 
 import Promise from "bluebird";
 import { Stream } from "stream";
+import path from "path";
+
 import { PortArray, InPort, OutPort } from "./Port";
 import { IP, OpenBracket, CloseBracket } from "./IP";
 
 export default class Process {
-  constructor(func, name, parent) {
-    this._func = func;
-    this._name = name || func.name;
+  constructor(component, name, parent) {
+    this._component = this._resolveComponent(component);
+    this._name = name || this._component.name || (typeof component === "string" && component) || "[unknown]";
     this._parent = parent;
 
     this._inputs = new PortArray("inputs", this, InPort);
     this._outputs = new PortArray("outputs", this, OutPort);
 
     this._ownedIPs = {};
+  }
+
+  _resolveComponent(component) {
+    if (typeof component === "string") {
+      let match = component.match(/^sbp\/(.*)$/);
+      if (match) {
+        component = path.resolve(module.filename, "../..", match[1]);
+      }
+      component = require(component);
+    }
+    return component;
   }
 
   input(...args)   { return this._inputs.port(...args); }
@@ -24,12 +37,12 @@ export default class Process {
   run() {
     let self = this;
     return (Promise.coroutine(function*() {
-      let func = self._func;
-      if (func.constructor.name === "GeneratorFunction") {
-        func = Promise.coroutine(func);
+      let component = self._component;
+      if (component.constructor.name === "GeneratorFunction") {
+        component = Promise.coroutine(component);
       }
 
-      let result = func.call(self);
+      let result = component.call(self);
 
       if (result && typeof result.then === "function") {
         yield result

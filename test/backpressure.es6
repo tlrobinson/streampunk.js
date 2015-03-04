@@ -1,10 +1,7 @@
-import copier from "../components/copier";
-
 // These tests (and the back-pressure implementation itself) are a work in progress.
 // See this for a description of the problem and possible solution:
 // https://github.com/dominictarr/pull-stream#transparent-backpressure--laziness
-
-describe("Port backpressure", function() {
+describe("port backpressure", function() {
   it("capacity of 1 (default)", function *() {
     let _ = createOrderedExpectation(5);
 

@@ -16,9 +16,8 @@ export default function ForkProcess(componentPath) {
 }
 
 export function runChild() {
-  var component = require(process.argv[1]);
   let parent = new Socket({ fd: 3 });
-  ProxyProcess.child(component, parent, parent);
+  ProxyProcess.child(process.argv[1], parent, parent);
 }
 
 // HACK: https://github.com/dominictarr/mux-demux/issues/34

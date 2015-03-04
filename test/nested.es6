@@ -1,6 +1,4 @@
-import copier from "../components/copier";
-
-describe("Nested networks", function() {
+describe("nested networks", function() {
   it("should work with 2 levels", function *() {
     let result = [];
 
@@ -9,7 +7,7 @@ describe("Nested networks", function() {
       let receiver = this.proc(Collector((ip) => result.push(ip)));
 
       let sub = this.net(function level2() {
-        let copy = this.proc(copier);
+        let copy = this.proc("sbp/components/copier");
         this.connect(this.input("IN"), copy.input("IN"));
         this.connect(copy.output("OUT"), this.output("OUT"));
       });
