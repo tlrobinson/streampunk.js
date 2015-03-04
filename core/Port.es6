@@ -113,6 +113,12 @@ export class PortArray {
     return ports;
   }
 
+  atPath(components) {
+    let arrays = components.slice();
+    let port = arrays.pop();
+    return arrays.reduce((a, name) => a.array(name), this).port(port);
+  }
+
   name() {
     return this._proc.name() + "." + this.constructor.name + "(" + this._name + ")";
   }

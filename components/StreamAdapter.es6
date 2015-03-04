@@ -14,7 +14,7 @@ export default function StreamAdapter(stream, encoding) {
   }
 }
 
-class UnwrapIP extends Transform {
+export class UnwrapIP extends Transform {
   constructor(proc) {
     super({ allowHalfOpen: false, objectMode: true });
     this._proc = proc;
@@ -25,7 +25,7 @@ class UnwrapIP extends Transform {
   }
 }
 
-class WrapIP extends Transform {
+export class WrapIP extends Transform {
   constructor(proc) {
     super({ allowHalfOpen: false, objectMode: true });
     this._proc = proc;
