@@ -12,12 +12,14 @@
   "author": "Tom Robinson <tom@tlrobinson.net>",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^4.3.0",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
     "chai": "^2.0.0",
     "chai-as-promised": "^4.2.0",
     "mocha": "^2.1.0"
   },
   "dependencies": {
+    "babel": "^4.7.1",
     "bluebird": "^2.9.12"
   }
 }
