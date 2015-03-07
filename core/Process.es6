@@ -3,8 +3,8 @@ import Promise from "bluebird";
 import { Stream } from "stream";
 import path from "path";
 
-import { PortArray, InPort, OutPort } from "./Port";
-import { IP, OpenBracket, CloseBracket } from "./IP";
+import { PortArray, InPort, OutPort } from "./Port.es6";
+import { IP, OpenBracket, CloseBracket } from "./IP.es6";
 
 export default class Process {
   constructor(component, name, parent) {

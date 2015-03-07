@@ -1,6 +1,6 @@
 
 import Promise from "bluebird";
-import Process from "./process";
+import Process from "./Process.es6";
 
 export default class Network extends Process {
   constructor(func, name, parent) {

@@ -1,7 +1,7 @@
 #!/usr/bin/env babel-node
 
-var Network = require("..").Network;
-var StreamAdapter = require("../components/StreamAdapter");
+import { Network } from "..";
+import StreamAdapter from "../components/StreamAdapter";
 
 function* reverse() {
   let ip;
