@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --require babel-polyfill --compilers es6:babel-register --recursive -R spec --require test/test-helper"
+    "test": "mocha --require babel-polyfill --require babel-register --recursive -R spec --require test/test-helper"
   },
   "author": "Tom Robinson <tom@tlrobinson.net>",
   "license": "MIT",
