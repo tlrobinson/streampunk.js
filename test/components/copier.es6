@@ -1,8 +1,8 @@
 describe("copier", function() {
-  it("should send from Emitter to Collector via copier", function *() {
+  it("should send from Emitter to Collector via copier", async function() {
     let result = [];
 
-    yield Network.run(function copier_test() {
+    await Network.run(function copier_test() {
       let sender   = this.proc(Emitter([1,2,3,4]));
       let copier   = this.proc("sbp/components/copier");
       let receiver = this.proc(Collector((ip) => result.push(ip)));

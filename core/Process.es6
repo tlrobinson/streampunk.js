@@ -36,11 +36,7 @@ export default class Process {
 
   async run() {
     let component = this._component;
-    if (component.constructor.name === "GeneratorFunction") {
-      component = Promise.coroutine(component);
-    }
-
-    // console.log("component", component)
+    
     let result = component.call(this);
 
     if (result && typeof result.then === "function") {

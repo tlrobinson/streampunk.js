@@ -1,15 +1,15 @@
-export default function* collate() {
+export default async function collate() {
   let ctlfields = this.input('CTLFIELDS');
   let inportArray = this.inputArray('IN');
   let outport = this.output('OUT');
 
-  let fields = yield ctlfields.receiveContents();
+  let fields = await ctlfields.receiveContents();
   let totalFieldLength = fields.reduce((acc, n) => acc + n, 0);
 
   let portCount = inportArray.length;
   let ips = [];
   for (let portIndex = 0; portIndex < portCount; portIndex++) {
-    ips[portIndex] = yield inportArray[portIndex].receive();
+    ips[portIndex] = await inportArray[portIndex].receive();
     if (ips[portIndex] === null) {
       portCount--;
     }
@@ -28,9 +28,9 @@ export default function* collate() {
       }
     }
 
-    yield outport.send(ips[lowestIndex]);
+    await outport.send(ips[lowestIndex]);
 
-    ips[lowestIndex] = yield inportArray[lowestIndex].receive();
+    ips[lowestIndex] = await inportArray[lowestIndex].receive();
     if (ips[lowestIndex] === null) {
       portCount--;
     }

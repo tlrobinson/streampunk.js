@@ -1,11 +1,11 @@
 
-export default function *flatten() {
+export default async functionflatten() {
   let array;
   let input = this.input("IN");
   let output = this.output("OUT");
-  while (array = yield input.receive()) {
+  while (array = await input.receive()) {
     for (let item of array) {
-      yield output.send(item);
+      await output.send(item);
     }
   }
 }

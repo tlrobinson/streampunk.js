@@ -1,8 +1,8 @@
 describe("nested networks", function() {
-  it("should work with 2 levels", function *() {
+  it("should work with 2 levels", async function() {
     let result = [];
 
-    yield Network.run(function level1() {
+    await Network.run(function level1() {
       let sender   = this.proc(Emitter([1,2,3,4]));
       let receiver = this.proc(Collector((ip) => result.push(ip)));
 

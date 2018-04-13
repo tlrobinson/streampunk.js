@@ -3,14 +3,14 @@
 import { Network } from "..";
 import StreamAdapter from "../components/StreamAdapter";
 
-function* reverse() {
+async function reverse() {
   let ip;
-  while (ip = yield this.input("IN").receive()) {
+  while (ip = await this.input("IN").receive()) {
     let reversed = ip.contents().trim().split("").reverse().join("")+"\n";
     this.drop(ip);
-    yield this.output("OUT").send(this.createIP(reversed));
+    await this.output("OUT").send(this.createIP(reversed));
   }
-  yield this.output("OUT").send(this.createIP("done!\n"));
+  await this.output("OUT").send(this.createIP("done!\n"));
 }
 
 Network.run(function reverse_example() {

@@ -34,10 +34,10 @@ The following are examples of a trivial "copier" component written in 3 differen
 
 ### Classical
 
-    function* copier() {
+    async function copier() {
       let ip;
-      while ((ip = yield this.input('IN').receive()) !== null) {
-        yield this.output('OUT').send(ip);
+      while ((ip = await this.input('IN').receive()) !== null) {
+        await this.output('OUT').send(ip);
       }
     }
 

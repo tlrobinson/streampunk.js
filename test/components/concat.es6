@@ -1,8 +1,8 @@
 describe("concat", function() {
-  it("should concat 2 ports", function *() {
+  it("should concat 2 ports", async function() {
     let result = [];
 
-    yield Network.run(function collate_test() {
+    await Network.run(function collate_test() {
       let sender1  = this.proc(Emitter(["x", "y", "z"]));
       let sender0  = this.proc(Emitter(["a", "b", "c"]));
       let concat  = this.proc("sbp/components/concat", null, { "CTLFIELDS": [1] });
