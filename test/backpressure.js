@@ -27,7 +27,10 @@ describe("port backpressure", function() {
     }
 
     await Network.run(function() {
-      this.connect(this.proc(sender).output("OUT"), this.proc(receiver).input("IN"));
+      this.connect(
+        this.proc(sender).output("OUT"),
+        this.proc(receiver).input("IN")
+      );
     });
     await _;
   });

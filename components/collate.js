@@ -1,8 +1,7 @@
-
 export default async function collate() {
-  let ctlfields = this.input('CTLFIELDS');
-  let inportArray = this.inputArray('IN');
-  let outport = this.output('OUT');
+  let ctlfields = this.input("CTLFIELDS");
+  let inportArray = this.inputArray("IN");
+  let outport = this.output("OUT");
 
   let fields = await ctlfields.receiveContents();
   let totalFieldLength = fields.reduce((acc, n) => acc + n, 0);

@@ -28,8 +28,6 @@ export class IP {
   }
 }
 
-export class OpenBracket extends IP {
-}
+export class OpenBracket extends IP {}
 
-export class CloseBracket extends IP {
-}
+export class CloseBracket extends IP {}

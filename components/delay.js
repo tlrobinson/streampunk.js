@@ -1,4 +1,3 @@
-
 export default async function delay() {
   let interval = await this.input("INTVL").receiveContents();
   let inPort = this.input("IN");

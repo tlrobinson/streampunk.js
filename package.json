@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --require babel-polyfill --require babel-register --recursive -R spec --require test/test-helper"
+    "test": "mocha --require babel-polyfill --require babel-register --recursive -R spec --require test/test-helper",
+    "lint": "yarn run lint:prettier",
+    "lint:prettier": "prettier -l '{components,core,examples,test}/**/*.{js,jsx,css}'",
+    "prettier": "prettier --write '{components,core,examples,test}/**/*.{js,jsx,css}'"
   },
   "author": "Tom Robinson <tom@tlrobinson.net>",
   "license": "MIT",
@@ -18,7 +21,8 @@
     "browserify": "^9.0.3",
     "chai": "^2.0.0",
     "chai-as-promised": "^4.2.0",
-    "mocha": "^5.1.0"
+    "mocha": "^5.1.0",
+    "prettier": "^1.12.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

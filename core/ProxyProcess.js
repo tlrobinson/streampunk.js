@@ -1,11 +1,9 @@
-
 import MuxDemux from "mux-demux";
 
 import Process from "./Process";
 import { WrapIP, UnwrapIP } from "../components/StreamAdapter";
 
 export default class ProxyProcess extends Process {
-
   static child(component, readable, writable) {
     let proc = new ProxyProcess(component);
     let control;
@@ -34,10 +32,13 @@ export default class ProxyProcess extends Process {
     function handleControlMessage(data) {
       switch (data.command) {
         case "run":
-          proc.run().then(() => {
-            control.write({ command: "end" });
-            cleanup();
-          }).catch(console.warn);
+          proc
+            .run()
+            .then(() => {
+              control.write({ command: "end" });
+              cleanup();
+            })
+            .catch(console.warn);
           break;
         default:
           console.warn("Unknown command:", data);
@@ -55,7 +56,6 @@ export default class ProxyProcess extends Process {
   }
 
   static parent(proc, readable, writable) {
-
     let mx = MuxDemux();
     readable.pipe(mx).pipe(writable);
 

@@ -1,4 +1,3 @@
-
 import stream from "stream";
 import { IP } from "./IP";
 import { receive, receiveContents, send } from "./stream";
@@ -16,7 +15,7 @@ export class Port extends stream.PassThrough {
 
     // Keep track of the number of ports piped into this port:
     this._pipeCount = 0;
-    this.on("pipe",   () => this._pipeCount++);
+    this.on("pipe", () => this._pipeCount++);
     this.on("unpipe", () => this._pipeCount--);
   }
 
@@ -29,7 +28,9 @@ export class Port extends stream.PassThrough {
     return super.end(...args);
   }
   name() {
-    return this._proc.name() + "." + this.constructor.name + "(" + this._name + ")";
+    return (
+      this._proc.name() + "." + this.constructor.name + "(" + this._name + ")"
+    );
   }
 }
 
@@ -81,7 +82,10 @@ export class PortArray {
     }
     let port = array._ports[key];
     if (port === undefined) {
-      port = array._ports[key] = new this._PortClass(this._name+"."+key, this._proc);
+      port = array._ports[key] = new this._PortClass(
+        this._name + "." + key,
+        this._proc
+      );
     }
     if (!(port instanceof Port)) {
       throw new Error("Wrong port type for key, expected Port: " + key);
@@ -92,7 +96,11 @@ export class PortArray {
   array(key) {
     let array = this._ports[key];
     if (array === undefined) {
-      array = this._ports[key] = new PortArray(this._name+"."+key, this._proc, this._Port);
+      array = this._ports[key] = new PortArray(
+        this._name + "." + key,
+        this._proc,
+        this._Port
+      );
     }
     if (!(array instanceof PortArray)) {
       throw new Error("Wrong port type for key, expected PortArray: " + key);
@@ -100,7 +108,7 @@ export class PortArray {
     return array;
   }
 
-  ports(recursive=false) {
+  ports(recursive = false) {
     let ports = [];
     for (let key in this._ports) {
       let port = this._ports[key];
@@ -120,6 +128,8 @@ export class PortArray {
   }
 
   name() {
-    return this._proc.name() + "." + this.constructor.name + "(" + this._name + ")";
+    return (
+      this._proc.name() + "." + this.constructor.name + "(" + this._name + ")"
+    );
   }
 }

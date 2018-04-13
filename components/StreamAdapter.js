@@ -1,10 +1,11 @@
-
 import { Transform } from "stream";
 
 export default function StreamAdapter(stream, encoding) {
   return function streamAdapter() {
     if (stream.writable) {
-      this.input("IN").pipe(new UnwrapIP(this)).pipe(stream);
+      this.input("IN")
+        .pipe(new UnwrapIP(this))
+        .pipe(stream);
     }
     if (stream.readable) {
       if (encoding != null) {
@@ -12,7 +13,7 @@ export default function StreamAdapter(stream, encoding) {
       }
       stream.pipe(new WrapIP(this)).pipe(this.output("OUT"));
     }
-  }
+  };
 }
 
 export class UnwrapIP extends Transform {
