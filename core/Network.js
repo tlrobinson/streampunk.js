@@ -41,14 +41,13 @@ export default class Network extends Process {
   }
 
   async run() {
-    let self = this;
     let promise = super.run();
 
-    await Promise.all(self._procs.map((proc) => proc.run()));
+    await Promise.all(this._procs.map((proc) => proc.run()));
 
     // log IPs that haven't been dropped
-    self._procs.forEach((proc) => {
-      proc.ownedIPs().forEach((ip) => self.warn(proc.name() + " still owns IP " + ip.contents()));
+    this._procs.forEach((proc) => {
+      proc.ownedIPs().forEach((ip) => this.warn(proc.name() + " still owns IP " + ip.contents()));
     });
 
     await Promise.resolve(promise);
