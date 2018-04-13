@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "babel": "^4.7.1",
-    "bluebird": "^2.9.12"
+    "bluebird": "^2.9.12",
+    "mux-demux": "^3.7.9"
   }
 }
