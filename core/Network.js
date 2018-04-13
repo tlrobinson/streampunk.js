@@ -1,5 +1,3 @@
-
-import Promise from "bluebird";
 import Process from "./Process";
 
 export default class Network extends Process {

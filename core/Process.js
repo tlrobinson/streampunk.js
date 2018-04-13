@@ -1,5 +1,3 @@
-
-import Promise from "bluebird";
 import { Stream } from "stream";
 import path from "path";
 
@@ -36,7 +34,7 @@ export default class Process {
 
   async run() {
     let component = this._component;
-    
+
     let result = component.call(this);
 
     if (result && typeof result.then === "function") {

@@ -1,6 +1,4 @@
-
 import stream from "stream";
-import Promise from "bluebird";
 
 // Receives an IP, returning a Promise if no IPs are buffered
 export function receive() {

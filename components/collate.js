@@ -1,3 +1,4 @@
+
 export default async function collate() {
   let ctlfields = this.input('CTLFIELDS');
   let inportArray = this.inputArray('IN');

@@ -1,3 +1,4 @@
+
 import { Transform } from "stream";
 
 export default function StreamAdapter(stream, encoding) {

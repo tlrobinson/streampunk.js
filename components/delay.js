@@ -1,4 +1,3 @@
-import Promise from "bluebird";
 
 export default async function delay() {
   let interval = await this.input("INTVL").receiveContents();

@@ -1,6 +1,4 @@
 
-import Promise from "bluebird";
-
 export default function Emitter(contents) {
   return async function emitter() {
     let outPort = this.output("OUT");

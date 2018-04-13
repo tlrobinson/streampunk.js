@@ -1,3 +1,4 @@
+
 export default async function concat() {
   let array = this.inputArray('IN');
   let outPort = this.output("OUT");

@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bluebird": "^2.9.12",
     "mux-demux": "^3.7.9"
   }
 }
