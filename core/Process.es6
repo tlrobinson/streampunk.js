@@ -24,7 +24,7 @@ export default class Process {
       if (match) {
         component = path.resolve(module.filename, "../..", match[1]);
       }
-      component = require(component);
+      component = require(component).default;
     }
     return component;
   }
@@ -34,32 +34,30 @@ export default class Process {
   inputArray(key)  { return this._inputs.array(key).ports(); }
   outputArray(key) { return this._outputs.array(key).ports(); }
 
-  run() {
-    let self = this;
-    return (Promise.coroutine(function*() {
-      let component = self._component;
-      if (component.constructor.name === "GeneratorFunction") {
-        component = Promise.coroutine(component);
-      }
+  async run() {
+    let component = this._component;
+    if (component.constructor.name === "GeneratorFunction") {
+      component = Promise.coroutine(component);
+    }
 
-      let result = component.call(self);
+    // console.log("component", component)
+    let result = component.call(this);
 
-      if (result && typeof result.then === "function") {
-        yield result
-      } else {
-        // TODO: Only care whether output ports get closed?
-        let ports = self._outputs.ports(true);
-        yield Promise.all(ports.map((port) => {
-          return new Promise((resolve, reject) => {
-            port.on("end", resolve);
-            port.on("error", reject);
-          });
-        }));
-        // TODO: Is there any reason to close input ports?
-        // TODO: Should we automatically close output ports when input ports are closed? Probably not.
-      }
-      self._outputs.ports(true).forEach((port) => port.end());
-    }))();
+    if (result && typeof result.then === "function") {
+      await result
+    } else {
+      // TODO: Only care whether output ports get closed?
+      let ports = this._outputs.ports(true);
+      await Promise.all(ports.map((port) => {
+        return new Promise((resolve, reject) => {
+          port.on("end", resolve);
+          port.on("error", reject);
+        });
+      }));
+      // TODO: Is there any reason to close input ports?
+      // TODO: Should we automatically close output ports when input ports are closed? Probably not.
+    }
+    this._outputs.ports(true).forEach((port) => port.end());
   }
 
   name() {

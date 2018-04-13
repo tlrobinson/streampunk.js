@@ -6,7 +6,7 @@ import { Socket } from "net";
 
 export default function ForkProcess(componentPath) {
   let args = [
-    '-e', 'require("babel/register"); require(' + JSON.stringify(module.filename) + ').runChild()',
+    '-e', 'require("babel-polyfill"); require("babel-register"); require(' + JSON.stringify(module.filename) + ').runChild()',
     componentPath
   ];
   return function forkProcess() {

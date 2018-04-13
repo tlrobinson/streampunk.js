@@ -7,19 +7,21 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --compilers es6:babel/register --recursive -R spec --require test/test-helper.es6"
+    "test": "mocha --require babel-polyfill --compilers es6:babel-register --recursive -R spec --require test/test-helper.es6"
   },
   "author": "Tom Robinson <tom@tlrobinson.net>",
   "license": "MIT",
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "chai": "^2.0.0",
     "chai-as-promised": "^4.2.0",
-    "mocha": "^2.1.0"
+    "mocha": "^5.1.0"
   },
   "dependencies": {
-    "babel": "^4.7.1",
+    "babel-polyfill": "^6.26.0",
     "bluebird": "^2.9.12",
     "mux-demux": "^3.7.9"
   }

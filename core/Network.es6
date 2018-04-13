@@ -42,20 +42,18 @@ export default class Network extends Process {
     }
   }
 
-  run() {
+  async run() {
     let self = this;
-    return Promise.coroutine(function*() {
-      let promise = super.run();
+    let promise = super.run();
 
-      yield Promise.all(self._procs.map((proc) => proc.run()));
+    await Promise.all(self._procs.map((proc) => proc.run()));
 
-      // log IPs that haven't been dropped
-      self._procs.forEach((proc) => {
-        proc.ownedIPs().forEach((ip) => self.warn(proc.name() + " still owns IP " + ip.contents()));
-      });
+    // log IPs that haven't been dropped
+    self._procs.forEach((proc) => {
+      proc.ownedIPs().forEach((ip) => self.warn(proc.name() + " still owns IP " + ip.contents()));
+    });
 
-      yield Promise.resolve(promise);
-    })();
+    await Promise.resolve(promise);
   }
 
   static run(func) {

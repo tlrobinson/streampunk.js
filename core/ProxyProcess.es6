@@ -37,7 +37,7 @@ export default class ProxyProcess extends Process {
           proc.run().then(() => {
             control.write({ command: "end" });
             cleanup();
-          }).done();
+          }).catch(console.warn);
           break;
         default:
           console.warn("Unknown command:", data);
