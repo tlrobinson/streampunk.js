@@ -1,8 +1,8 @@
 
 import MuxDemux from "mux-demux";
 
-import Process from "./Process.es6";
-import { WrapIP, UnwrapIP } from "../components/StreamAdapter.es6";
+import Process from "./Process";
+import { WrapIP, UnwrapIP } from "../components/StreamAdapter";
 
 export default class ProxyProcess extends Process {
 

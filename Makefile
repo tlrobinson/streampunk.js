@@ -1,7 +1,7 @@
 
 build: examples/browser/index-bundle.js
 
-%-bundle.js: %.es6
+%-bundle.js: %
 	browserify $? --extension=es6 -t [ babelify --blacklist regenerator ] --outfile $@
 
 clean:

@@ -1,13 +1,13 @@
 {
   "name": "streampunk",
   "version": "0.0.1",
-  "main": "index.es6",
+  "main": "index",
   "directories": {
     "example": "examples",
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --require babel-polyfill --compilers es6:babel-register --recursive -R spec --require test/test-helper.es6"
+    "test": "mocha --require babel-polyfill --compilers es6:babel-register --recursive -R spec --require test/test-helper"
   },
   "author": "Tom Robinson <tom@tlrobinson.net>",
   "license": "MIT",

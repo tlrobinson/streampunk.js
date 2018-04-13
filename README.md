@@ -13,7 +13,7 @@ Usage
     npm test
 
     npm install -g babel
-    babel-node examples/reverse.es6
+    babel-node examples/reverse
 
 To try a browser example, run `make` then open "examples/browser/index.html" in the browser.
 

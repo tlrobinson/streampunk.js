@@ -1,8 +1,8 @@
 
 import { Network } from "../..";
-import Collector from "../../components/Collector.es6";
-import Emitter from "../../components/Emitter.es6";
-import StreamAdapter from "../../components/StreamAdapter.es6";
+import Collector from "../../components/Collector";
+import Emitter from "../../components/Emitter";
+import StreamAdapter from "../../components/StreamAdapter";
 import { PassThrough } from "stream";
 
 async function reverse() {

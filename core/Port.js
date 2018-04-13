@@ -1,7 +1,7 @@
 
 import stream from "stream";
-import { IP } from "./IP.es6";
-import { receive, receiveContents, send } from "./stream.es6";
+import { IP } from "./IP";
+import { receive, receiveContents, send } from "./stream";
 
 export class Port extends stream.PassThrough {
   constructor(name, proc) {

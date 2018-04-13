@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import ProxyProcess from "../core/ProxyProcess.es6";
+import ProxyProcess from "../core/ProxyProcess";
 
 import { PassThrough } from "stream";
 import { Socket } from "net";
